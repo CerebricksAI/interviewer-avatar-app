@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview Session — AI Avatar Interviewer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="interview-page">
+
+  <!-- ── Progress Bar (top strip) ── -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+    <span class="progress-label" id="progress-label">Starting…</span>
+  </div>
+
+  <!-- ── Main Layout ── -->
+  <div class="interview-layout" id="interview-layout">
+
+    <!-- Left: Avatar Video Panel -->
+    <div class="avatar-panel">
+      <div class="avatar-video-wrapper">
+        <video id="avatar-video" autoplay playsinline muted></video>
+
+        <!-- Shown while connecting -->
+        <div class="avatar-loading" id="avatar-loading">
+          <div class="spinner"></div>
+          <p id="loading-text">Connecting avatar…</p>
+        </div>
+      </div>
+
+      <div class="avatar-footer">
+        <div class="status-indicator">
+          <div class="status-dot" id="status-dot"></div>
+          <span id="status-label">Connecting…</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Question Panel -->
+    <div class="question-panel">
+      <div class="question-header">
+        <span class="question-badge" id="question-badge">Question — / 5</span>
+      </div>
+
+      <div class="question-text" id="question-text">
+        Preparing your interview…
+      </div>
+
+      <div class="options-container" id="options-container">
+        <!-- Options injected by interview.js -->
+      </div>
+
+      <div class="listening-hint" id="listening-hint">
+        🔊 Avatar is speaking — options will unlock when finished
+      </div>
+    </div>
+
+  </div><!-- /#interview-layout -->
+
+  <!-- ── Pass Azure region to JS ── -->
+  <script>
+    window.SPEECH_REGION = "{{ speech_region }}";
+  </script>
+
+  <!-- Azure Speech SDK (loads AvatarSynthesizer, SpeechConfig, etc.) -->
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+
+  <!-- App scripts -->
+  <script src="{{ url_for('static', filename='js/avatar.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/interview.js') }}"></script>
+
+</body>
+</html>
