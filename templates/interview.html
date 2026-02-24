@@ -8,27 +8,21 @@
 </head>
 <body class="interview-page">
 
-  <!-- ── Progress Bar (top strip) ── -->
   <div class="progress-bar-container">
     <div class="progress-bar-fill" id="progress-fill"></div>
     <span class="progress-label" id="progress-label">Starting…</span>
   </div>
 
-  <!-- ── Main Layout ── -->
   <div class="interview-layout" id="interview-layout">
 
-    <!-- Left: Avatar Video Panel -->
     <div class="avatar-panel">
       <div class="avatar-video-wrapper">
         <video id="avatar-video" autoplay playsinline muted></video>
-
-        <!-- Shown while connecting -->
         <div class="avatar-loading" id="avatar-loading">
           <div class="spinner"></div>
           <p id="loading-text">Connecting avatar…</p>
         </div>
       </div>
-
       <div class="avatar-footer">
         <div class="status-indicator">
           <div class="status-dot" id="status-dot"></div>
@@ -37,36 +31,43 @@
       </div>
     </div>
 
-    <!-- Right: Question Panel -->
     <div class="question-panel">
       <div class="question-header">
-        <span class="question-badge" id="question-badge">Question — / 5</span>
+        <span class="question-badge" id="question-badge">Question — / 4</span>
       </div>
 
       <div class="question-text" id="question-text">
         Preparing your interview…
       </div>
 
-      <div class="options-container" id="options-container">
-        <!-- Options injected by interview.js -->
+      <div class="mic-area" id="mic-area" style="display:none">
+        <div class="mic-indicator" id="mic-indicator">
+          <div class="mic-ring ring-1"></div>
+          <div class="mic-ring ring-2"></div>
+          <svg class="mic-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/>
+            <path d="M5 10a7 7 0 0 0 14 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="9" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="mic-status" id="mic-status">Listening…</p>
+      </div>
+
+      <div class="transcript-box" id="transcript-box" style="display:none">
+        <p class="transcript-label">You said:</p>
+        <p class="transcript-text" id="transcript-text"></p>
       </div>
 
       <div class="listening-hint" id="listening-hint">
-        🔊 Avatar is speaking — options will unlock when finished
+        🔊 Avatar is speaking — mic will activate when finished
       </div>
     </div>
 
-  </div><!-- /#interview-layout -->
+  </div>
 
-  <!-- ── Pass Azure region to JS ── -->
-  <script>
-    window.SPEECH_REGION = "{{ speech_region }}";
-  </script>
-
-  <!-- Azure Speech SDK (loads AvatarSynthesizer, SpeechConfig, etc.) -->
+  <script>window.SPEECH_REGION = "{{ speech_region }}";</script>
   <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
-
-  <!-- App scripts -->
   <script src="{{ url_for('static', filename='js/avatar.js') }}"></script>
   <script src="{{ url_for('static', filename='js/interview.js') }}"></script>
 
